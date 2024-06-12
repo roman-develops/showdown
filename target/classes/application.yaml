@@ -1,6 +1,5 @@
 server:
   port: 8080
-
 spring:
   application:
     name: showdown
@@ -9,3 +8,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/showdown
     username: postgres
     password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
