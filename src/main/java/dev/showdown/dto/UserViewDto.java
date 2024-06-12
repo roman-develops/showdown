@@ -1,13 +1,17 @@
 package dev.showdown.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Schema(name = "User view DTO")
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-@RequiredArgsConstructor
 public class UserViewDto {
+
+    private Long id;
+    private String username;
+
 }
