@@ -5,9 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-@Schema(name = "User view DTO")
+@Schema(name = "Vote leave DTO")
 @Data
 @Builder
 @RequiredArgsConstructor
-public class UserViewDto {
+public class VoteLeaveDto {
 }
