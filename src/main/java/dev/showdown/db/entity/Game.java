@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@jakarta.persistence.Table(name = "game")
+@Table(name = "game")
 public class Game {
 
     @Id
