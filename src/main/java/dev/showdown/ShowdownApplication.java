@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @OpenAPIDefinition(
 		tags = {
+				@Tag(name = "Authorization"),
 				@Tag(name = "User"),
 				@Tag(name = "Table"),
 				@Tag(name = "Game"),
