@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@jakarta.persistence.Table(name = "table_entity")
+@Table(name = "table_entity")
 public class TableEntity {
 
     @Id
