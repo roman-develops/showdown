@@ -1,16 +1,12 @@
 package dev.showdown.controller;
 
-import dev.showdown.dto.UserCreateDto;
 import dev.showdown.dto.UserViewDto;
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/users")
@@ -28,15 +24,6 @@ public class UserController {
     @GetMapping("/{userId}")
     public UserViewDto getUser(@PathVariable Long userId) {
         return new UserViewDto();
-    }
-
-    // TODO Implement this
-    @Operation(tags = { "User" }, summary = "Create a new user")
-    @PostMapping
-    public ResponseEntity<Void> createUser(@RequestBody UserCreateDto userCreateDto) {
-        return ResponseEntity
-                .created(URI.create("/api/users"))
-                .build();
     }
 
 }
