@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: showdown
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/showdown
+    username: postgres
+    password: postgres
