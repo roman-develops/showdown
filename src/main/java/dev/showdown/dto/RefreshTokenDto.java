@@ -1,16 +1,18 @@
 package dev.showdown.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@Schema(name = "JWT token DTO")
+@Schema(name = "Refresh token DTO")
 @Data
 @Builder
-public class TokenDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class RefreshTokenDto {
 
-    private String accessToken;
     private String refreshToken;
 
 }
