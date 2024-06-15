@@ -13,9 +13,8 @@ spring:
       ddl-auto: update
 
 token:
-  secret: very_secret_secret_secret_secret_secret_secret
-  expiration: 999999
-  token-type: "Bearer "
+  access-token-expiration-minutes: 15
+  refresh-token-expiration-minutes: 43200 # 30 days
 
 rsa:
   public-key: classpath:certs/public.pem
