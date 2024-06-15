@@ -22,7 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
-    private final JwtService jwtService;
+    private final TokenService tokenService;
     private final UserEntityRepository userEntityRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
@@ -33,7 +33,7 @@ public class AuthenticationService {
                         loginDto.getUsername(),
                         loginDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new TokenDto(jwtService.generateToken(authentication.getName()));
+        return new TokenDto(tokenService.generateToken(authentication));
     }
 
     public UserViewDto register(RegisterDto registerDto) {
