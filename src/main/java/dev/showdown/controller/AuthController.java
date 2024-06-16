@@ -5,10 +5,7 @@ import dev.showdown.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -39,5 +36,13 @@ public class AuthController {
     public TokenDto refreshToken(@RequestBody RefreshTokenDto refreshTokenDto) {
         return authService.refreshToken(refreshTokenDto);
     }
+
+    @Operation(tags = { "Authorization" }, summary = "Logout")
+    @DeleteMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestBody RefreshTokenDto refreshTokenDto) {
+        authService.logout(refreshTokenDto);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
