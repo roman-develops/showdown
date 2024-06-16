@@ -70,8 +70,7 @@ public class TokenService {
     public boolean isRefreshTokenValid(String refreshToken) {
         try {
             Jwt decoded = jwtDecoder.decode(refreshToken);
-            return refreshTokenRepository.existsByValue(decoded.getTokenValue())
-                    && Instant.now().isBefore(Objects.requireNonNull(decoded.getExpiresAt()));
+            return refreshTokenRepository.existsByValue(decoded.getTokenValue());
         } catch (JwtException ex) {
             return false;
         }

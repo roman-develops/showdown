@@ -63,4 +63,9 @@ public class AuthService {
 
         return tokenService.generateTokenDto(authentication);
     }
+
+    @Transactional
+    public void logout(RefreshTokenDto refreshTokenDto) {
+        refreshTokenRepository.deleteByValue(refreshTokenDto.getRefreshToken());
+    }
 }
