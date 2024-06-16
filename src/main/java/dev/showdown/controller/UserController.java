@@ -1,6 +1,6 @@
 package dev.showdown.controller;
 
-import dev.showdown.dto.UserViewDto;
+import dev.showdown.dto.UserDto;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +15,15 @@ public class UserController {
     // TODO Implement this
     @Operation(tags = { "User" }, summary = "Get all users")
     @GetMapping
-    public Page<UserViewDto> getAllUsers() {
+    public Page<UserDto> getAllUsers() {
         return Page.empty();
     }
 
     // TODO Implement this
     @Operation(tags = { "User" }, summary = "Get a user by id")
     @GetMapping("/{userId}")
-    public UserViewDto getUser(@PathVariable Long userId) {
-        return new UserViewDto();
+    public UserDto getUser(@PathVariable Long userId) {
+        return new UserDto();
     }
 
 }

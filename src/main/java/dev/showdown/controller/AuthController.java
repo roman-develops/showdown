@@ -1,17 +1,11 @@
 package dev.showdown.controller;
 
-import dev.showdown.dto.LoginDto;
-import dev.showdown.dto.RegisterDto;
-import dev.showdown.dto.TokenDto;
-import dev.showdown.dto.UserViewDto;
-import dev.showdown.service.AuthenticationService;
+import dev.showdown.dto.*;
+import dev.showdown.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -20,21 +14,34 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthenticationService authenticationService;
+    private final AuthService authService;
 
     @Operation(tags = { "Authorization" }, summary = "Login")
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody LoginDto loginDto) {
-        return ResponseEntity.ok(authenticationService.login(loginDto));
+    public TokenDto login(@RequestBody LoginDto loginDto) {
+        return authService.login(loginDto);
     }
 
     @Operation(tags = { "Authorization" }, summary = "Register new account")
     @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody RegisterDto registerDto) {
-        UserViewDto userViewDto = authenticationService.register(registerDto);
+        UserDto userDto = authService.register(registerDto);
         return ResponseEntity
-                .created(URI.create("/api/users/" + userViewDto.getId().toString()))
+                .created(URI.create("/api/users/" + userDto.getId().toString()))
                 .build();
+    }
+
+    @Operation(tags = { "Authorization" }, summary = "Refresh token")
+    @PostMapping("/refresh")
+    public TokenDto refreshToken(@RequestBody RefreshTokenDto refreshTokenDto) {
+        return authService.refreshToken(refreshTokenDto);
+    }
+
+    @Operation(tags = { "Authorization" }, summary = "Logout")
+    @DeleteMapping("/logout")
+    public ResponseEntity<Void> logout(@RequestBody RefreshTokenDto refreshTokenDto) {
+        authService.logout(refreshTokenDto);
+        return ResponseEntity.noContent().build();
     }
 
 }

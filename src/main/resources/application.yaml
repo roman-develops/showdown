@@ -12,7 +12,10 @@ spring:
     hibernate:
       ddl-auto: update
 
-jwt:
-  secret: very_secret_secret_secret_secret_secret_secret
-  expiration: 999999
-  token-type: "Bearer "
+token:
+  access-token-expiration-minutes: 5
+  refresh-token-expiration-minutes: 43200 # 30 days
+
+rsa:
+  public-key: classpath:certs/public.pem
+  private-key: classpath:certs/private.pem

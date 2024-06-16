@@ -7,14 +7,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "jwt")
+@ConfigurationProperties(prefix = "token")
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class JwtProperties {
+public class TokenProperties {
 
     private String secret;
-    private Long expiration;
-    private String tokenType;
+    private Long accessTokenExpirationMinutes;
+    private Long refreshTokenExpirationMinutes;
 
 }
