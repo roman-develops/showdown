@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TableEntityRepository extends JpaRepository<TableEntity, Long> {
+public interface TableRepository extends JpaRepository<TableEntity, String> {
 
-    Optional<TableEntity> getTableEntitiesByLinkIdentifier(String linkIdentifier);
+    Optional<TableEntity> getTableEntityById(String id);
 
     List<TableEntity> findAllByOwner(UserEntity owner);
 }

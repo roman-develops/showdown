@@ -2,10 +2,7 @@ package dev.showdown.db.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
@@ -13,26 +10,28 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder(toBuilder = true)
 @Entity
 @Table(name = "table_entity")
 public class TableEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String linkIdentifier;
+    private String id;
 
     private String name;
 
     private String votingSystem;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_entity_id", referencedColumnName = "id")
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private UserEntity owner;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_table", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "rdu_id")
-    private Set<Long> usersIds;
+    @ManyToMany
+    @JoinTable(
+            name = "user_table",
+            joinColumns = { @JoinColumn(name = "table_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
+    Set<UserEntity> participants;
+
 }

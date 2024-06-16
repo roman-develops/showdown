@@ -16,28 +16,28 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @Operation(tags = { "Authorization" }, summary = "Login")
+    @Operation(tags = { "Authorization" }, summary = "Authenticate a user and return a token")
     @PostMapping("/login")
     public TokenDto login(@RequestBody LoginDto loginDto) {
         return authService.login(loginDto);
     }
 
-    @Operation(tags = { "Authorization" }, summary = "Register new account")
+    @Operation(tags = { "Authorization" }, summary = "Register a new user account and return the user's details")
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody RegisterDto registerDto) {
-        UserDto userDto = authService.register(registerDto);
+    public ResponseEntity<UserViewDto> register(@RequestBody RegisterDto registerDto) {
+        UserViewDto newUser = authService.register(registerDto);
         return ResponseEntity
-                .created(URI.create("/api/users/" + userDto.getId().toString()))
-                .build();
+                .created(URI.create("/api/users/" + newUser.getId().toString()))
+                .body(newUser);
     }
 
-    @Operation(tags = { "Authorization" }, summary = "Refresh token")
+    @Operation(tags = { "Authorization" }, summary = "Refresh the authentication token for a user")
     @PostMapping("/refresh")
     public TokenDto refreshToken(@RequestBody RefreshTokenDto refreshTokenDto) {
         return authService.refreshToken(refreshTokenDto);
     }
 
-    @Operation(tags = { "Authorization" }, summary = "Logout")
+    @Operation(tags = { "Authorization" }, summary = "Logout a user and invalidate their refresh token")
     @DeleteMapping("/logout")
     public ResponseEntity<Void> logout(@RequestBody RefreshTokenDto refreshTokenDto) {
         authService.logout(refreshTokenDto);

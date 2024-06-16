@@ -15,26 +15,38 @@ public class UserService {
 
     private final UserEntityRepository userEntityRepository;
 
-    public UserEntity getUserByUsername(String username) {
+    /**
+     * Retrieves a UserEntity by its username.
+     *
+     * @param username - the username of the user
+     * @return UserEntity - the user entity with the given username
+     * @throws UsernameNotFoundException if a user with the given username is not found
+     */
+    public UserEntity getUser(String username) {
         return userEntityRepository.findByUsername(username).orElseThrow(() ->
-                new UsernameNotFoundException("User not found"));
+                new UsernameNotFoundException(String.format("User with username %s not found", username)));
     }
 
+    /**
+     * Retrieves the username of the currently authenticated user.
+     *
+     * @return String - the username of the authenticated user, or null if no user is authenticated
+     */
     private String getAuthenticatedUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
-            Object principal = authentication.getPrincipal();
-            if (principal instanceof UserDetails) {
-                return ((UserDetails) principal).getUsername();
-            } else {
-                return principal.toString();
-            }
+            return authentication.getName();
         }
         return null;
     }
 
+    /**
+     * Retrieves the UserEntity of the currently authenticated user.
+     *
+     * @return UserEntity - the user entity of the authenticated user
+     */
     public UserEntity getCurrentUser() {
         String username = getAuthenticatedUsername();
-        return getUserByUsername(username);
+        return getUser(username);
     }
 }
