@@ -9,7 +9,8 @@ Showdown is a RESTful Spring Boot application for planning poker.
         1. [Prerequisites](#prerequisites)
         2. [Installation](#installation)
 3. [API Documentation](#api-documentation)
-4. [License](#license)
+4. [Authors](#authors)
+5. [License](#license)
 
 # Getting started
 
@@ -39,6 +40,11 @@ Ensure you have the following installed on your local machine:
 
 # API documentation
 The API documentation for Showdown is accessible when you run the application. It can be viewed at http://localhost:8080/swagger-ui/index.html#/. This documentation provides insights into the endpoints, the structure of requests/responses, and status codes.
+
+# Authors
+Pavel Sulavko https://github.com/SulavkoPavel 
+
+Roman Kryukoff https://github.com/roman-develops
 
 # License
 This project is licensed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
