@@ -1,9 +1,7 @@
 package dev.showdown.service;
 
 import dev.showdown.db.entity.RefreshToken;
-import dev.showdown.db.entity.UserEntity;
 import dev.showdown.db.repository.RefreshTokenRepository;
-import dev.showdown.db.repository.UserEntityRepository;
 import dev.showdown.dto.TokenDto;
 import dev.showdown.property.TokenProperties;
 import lombok.AllArgsConstructor;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -30,7 +27,7 @@ public class TokenService {
 
         refreshTokenRepository.saveAndFlush(RefreshToken.builder()
                         .value(refreshToken)
-                        .user(userService.getUserByUsername(authentication.getName()))
+                        .user(userService.getUser(authentication.getName()))
                 .build());
 
         return TokenDto.builder()

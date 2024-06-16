@@ -3,12 +3,12 @@ package dev.showdown.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-@Schema(name = "New table DTO")
+@Schema(name = "Table create DTO")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewTableDto {
+public class TableCreateDto {
 
     private String name;
 

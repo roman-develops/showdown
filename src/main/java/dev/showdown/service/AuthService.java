@@ -27,6 +27,12 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
 
+    /**
+     * Authenticates a user with their username and password, and generates a token for them.
+     *
+     * @param loginDto - DTO containing the user's login credentials
+     * @return TokenDto - DTO containing the generated token
+     */
     public TokenDto login(LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -36,8 +42,15 @@ public class AuthService {
         return tokenService.generateTokenDto(authentication);
     }
 
-    @Transactional(readOnly = true)
-    public UserDto register(RegisterDto registerDto) {
+    /**
+     * Registers a new user with a username and password.
+     *
+     * @param registerDto - DTO containing the user's registration details
+     * @return UserViewDto - DTO representing the view of the registered user
+     * @throws ResponseStatusException if the username is already taken
+     */
+    @Transactional
+    public UserViewDto register(RegisterDto registerDto) {
         if (userEntityRepository.existsByUsername(registerDto.getUsername())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username is already taken!");
         }
@@ -50,6 +63,13 @@ public class AuthService {
         return userMapper.toUserViewDto(userEntityRepository.save(user));
     }
 
+    /**
+     * Refreshes a user's token.
+     *
+     * @param refreshTokenDto - DTO containing the refresh token
+     * @return TokenDto - DTO containing the new token
+     * @throws ResponseStatusException if the refresh token is invalid
+     */
     @Transactional
     public TokenDto refreshToken(RefreshTokenDto refreshTokenDto) {
         if (!tokenService.isRefreshTokenValid(refreshTokenDto.getRefreshToken())) {
@@ -64,6 +84,11 @@ public class AuthService {
         return tokenService.generateTokenDto(authentication);
     }
 
+    /**
+     * Logs out a user by deleting their refresh token.
+     *
+     * @param refreshTokenDto - DTO containing the refresh token
+     */
     @Transactional
     public void logout(RefreshTokenDto refreshTokenDto) {
         refreshTokenRepository.deleteByValue(refreshTokenDto.getRefreshToken());
