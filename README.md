@@ -2,6 +2,14 @@
 
 Showdown is a RESTful Spring Boot application for planning poker.
 
+<p align="center">
+  <img width="100%" src="game.png" />
+</p>
+
+<p align="center">
+  <img width="100%" src="my-tables.png" />
+</p>
+
 # Contents
 1. [Features](#features)
 2. [Getting started](#getting-started)
