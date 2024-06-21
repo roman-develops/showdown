@@ -5,15 +5,17 @@ import dev.showdown.db.entity.UserEntity;
 import dev.showdown.db.repository.TableRepository;
 import dev.showdown.dto.TableCreateDto;
 import dev.showdown.dto.TableViewDto;
+import dev.showdown.dto.UserViewDto;
 import dev.showdown.mapper.TableMapper;
+import dev.showdown.mapper.UserMapper;
 import dev.showdown.util.LinkIdGenerator;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +25,7 @@ public class TableService {
 
     private final TableRepository tableRepository;
     private final TableMapper tableMapper;
+    private final UserMapper userMapper;
     private final UserService userService;
 
     // TODO Reimplement this
@@ -105,12 +108,35 @@ public class TableService {
     }
 
     /**
+     * Retrieves all tables.
+     *
+     * @return List<TableViewDto> - list of DTO representing all table views
+     */
+    @Transactional(readOnly = true)
+    public Set<UserViewDto> getTableParticipants(String tableId) {
+
+        TableEntity table = getTable(tableId);
+        return userMapper.toUserViewDtos(getTable(tableId).getParticipants());
+    }
+
+    /**
+     * Checks if the user is the owner of the specified table.
+     *
+     * @param username The username of the user.
+     * @param tableId The ID of the table.
+     * @return A boolean indicating whether the user is the owner of the table.
+     */
+    @Transactional(readOnly = true)
+    public boolean isUserTableOwner(String username, String tableId) {
+        return tableRepository.isUserTableOwner(username, tableId);
+    }
+
+    /**
      * Deletes a table using its ID.
      * Only the owner of the table can delete it.
      *
      * @param tableId - unique table ID
      */
-    @PreAuthorize("@tableService.getTable(#tableId).owner.username == authentication.name")
     public void deleteTable(String tableId) {
         tableRepository.deleteById(tableId);
     }
