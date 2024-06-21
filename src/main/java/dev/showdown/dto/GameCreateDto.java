@@ -6,14 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Schema(name = "Table create DTO")
+@Schema(name = "Game create DTO")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TableCreateDto {
+public class GameCreateDto {
 
-    private String name;
+    private String tableId;
 
-    private String votingSystem;
 }

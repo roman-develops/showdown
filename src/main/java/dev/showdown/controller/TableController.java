@@ -6,6 +6,7 @@ import dev.showdown.service.TableService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -46,6 +47,7 @@ public class TableController {
     }
 
     @Operation(tags = {"Table"}, summary = "Delete a table by its ID")
+    @PreAuthorize("@tableService.getTable(#tableId).owner.username == authentication.name")
     @DeleteMapping("/tables/{tableId}")
     public ResponseEntity<Void> deleteTable(@PathVariable String tableId) {
         tableService.deleteTable(tableId);

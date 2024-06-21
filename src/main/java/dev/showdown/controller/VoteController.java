@@ -1,6 +1,6 @@
 package dev.showdown.controller;
 
-import dev.showdown.dto.GameDto;
+import dev.showdown.dto.GameViewDto;
 import dev.showdown.dto.VoteLeaveDto;
 import dev.showdown.dto.VoteViewDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,7 +17,7 @@ public class VoteController {
     // TODO Implement this
     @GetMapping("/game-votes/{gameId}")
     @Operation(tags = { "Vote" }, summary = "Get game votes by game id")
-    public Page<GameDto> getGameVotes(@PathVariable Long gameId) {
+    public Page<GameViewDto> getGameVotes(@PathVariable Long gameId) {
         return Page.empty();
     }
 
