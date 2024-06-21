@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TokenProperties {
 
-    private String secret;
     private Long accessTokenExpirationMinutes;
     private Long refreshTokenExpirationMinutes;
 
