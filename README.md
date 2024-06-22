@@ -1,6 +1,6 @@
 # Showdown
 
-Showdown is a RESTful Spring Boot application for planning poker.
+Showdown is a Spring Boot application for planning poker.
 
 <p align="center">
   <img width="100%" src="game.png" />
@@ -10,26 +10,24 @@ Showdown is a RESTful Spring Boot application for planning poker.
   <img width="100%" src="my-tables.png" />
 </p>
 
-# Contents
+# Table of contents
 1. [Features](#features)
-2. [Getting started](#getting-started)
-   1. [Running Locally](#running-locally)
-        1. [Prerequisites](#prerequisites)
-        2. [Installation](#installation)
+2. [Running Locally](#running-locally)
+   1. [Prerequisites](#prerequisites)
+   2. [Installation](#installation)
 3. [API Documentation](#api-documentation)
+   1. [REST API](#rest-api)
+   2. [WebSocket API](#websocket-api)
 4. [Authors](#authors)
 5. [License](#license)
 
-# Getting started
-
-## Running locally
+# Running locally
 ### Prerequisites
 Ensure you have the following installed on your local machine:
 - Java 17 or later
 - Maven
 
 ### Installation
-
 1. Clone the repository to your local machine.
 2. Navigate to the project directory.
 3. Run this command to build the project:
@@ -47,12 +45,22 @@ Ensure you have the following installed on your local machine:
 5. Run `mvn spring-boot:run` to start the application.
 
 # API documentation
-The API documentation for Showdown is accessible when you run the application. It can be viewed at http://localhost:8080/swagger-ui/index.html#/. This documentation provides insights into the endpoints, the structure of requests/responses, and status codes.
+### REST API
+The REST API documentation for Showdown is accessible when you run the application. It can be viewed at http://localhost:8080/swagger-ui/index.html#/. This documentation provides insights into the endpoints, the structure of requests/responses, and status codes.
+
+### WebSocket API
+[Websocket API documentation](WebSocketApiDocs.md)
+
+In the context of our application, the WebSocket API is used for exchanging notifications among participants. This includes notifications about the creation of new games, voting, and other real-time events.
+
+For more detailed information about the WebSocket API, you can refer to the WebSocket API documentation.
 
 # Authors
-Pavel Sulavko https://github.com/SulavkoPavel 
+### Pavel Sulavko
+https://github.com/SulavkoPavel 
 
-Roman Kryukoff https://github.com/roman-develops
+### Roman Kryukoff 
+https://github.com/roman-develops
 
 # License
 This project is licensed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
