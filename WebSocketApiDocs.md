@@ -31,7 +31,7 @@ You can obtain this JWT token by making a REST request to the login endpoint, wh
 ### Example message to connect
 
 **StompJS**
-```json
+```javascript
 var socket = new SockJS('http://localhost:8080/ws');
 var stompClient = Stomp.over(socket);
 
