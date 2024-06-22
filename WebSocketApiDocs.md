@@ -29,6 +29,21 @@ When sending a message with the `CONNECT` type, you should include an `Authoriza
 You can obtain this JWT token by making a REST request to the login endpoint, which can be found in our REST API documentation.
 
 ### Example message to connect
+
+**StompJS**
+```json
+var socket = new SockJS('http://localhost:8080/ws');
+var stompClient = Stomp.over(socket);
+
+var headers = {
+    Authorization: 'Bearer '  + accessToken
+};
+
+stompClient.connect(headers, function(frame) {
+});
+```
+
+**Message**
 ```plaintext
 CONNECT
 Authorization:Bearer eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJSb21hbjIiLCJleHAiOjE3MTkwNzYyOTYsImlhdCI6MTcxOTA3NTk5Nn0.V6ujB1C8B9BVcQIsdKE5rnM6_VIN-AIE7AzrCFG5WO7xjF8Y-z3j8JAntTRG4FuXvJT6xSnwvc2UL1KZRP9AS-wEyjcYR3dO0ZtjkKfF5kYJWPRMpdTfvXTcDXNLgHV4D6foObrAfBFyKcrRGPLns2xPGstxuYbdT3nAAYnKoOF_PgCsjZaClHpHZrC9PGbVoAa7GlDxn_m9ylNu3XZR18yJwmnZf20fpb3QbQFZKizQLg3AdaGOtplezfUDN29RqIheYpyw_vLaYshADn09pPmxgTpTuIxWauQnoi0QfU48rVQBNof8ubTmokFD9w37q3Dq2uX2_QrXR9XyP0mwDQ
