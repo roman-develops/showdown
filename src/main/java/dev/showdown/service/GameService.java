@@ -4,6 +4,7 @@ import dev.showdown.db.entity.Game;
 import dev.showdown.db.repository.GameRepository;
 import dev.showdown.dto.GameViewDto;
 import dev.showdown.mapper.GameMapper;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,4 +32,17 @@ public class GameService {
                 .build());
         return gameMapper.toGameDto(newGame);
     }
+
+    /**
+     * Retrieves the game associated with the specified table ID.
+     *
+     * @param tableId the ID of the table
+     * @return the Game entity associated with the specified table ID
+     * @throws EntityNotFoundException if no game is found for the specified table ID
+     */
+    public Game getGameByTableId(String tableId) {
+        return gameRepository.findGameByTableId(tableId).orElseThrow(() ->
+                new EntityNotFoundException(String.format("Game with table id %s not found", tableId)));
+    }
+
 }

@@ -26,5 +26,5 @@ public class Vote {
     @JoinColumn(name = "game_id", referencedColumnName = "id")
     private Game game;
 
-    private String value;
+    private int value;
 }

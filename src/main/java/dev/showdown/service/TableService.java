@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,7 +30,7 @@ public class TableService {
     private final UserMapper userMapper;
     private final UserService userService;
 
-    // TODO Reimplement this
+    //TODO Reimplement this
     public static final String DEFAULT_VOTING_SYSTEM = "{1}{2}{3}{4}{5}{6}{7}";
 
 
@@ -75,6 +77,7 @@ public class TableService {
                 .id(LinkIdGenerator.generateLinkId())
                 .votingSystem(DEFAULT_VOTING_SYSTEM)
                 .owner(userService.getCurrentUser())
+                .participants(new HashSet<>(Collections.singleton(userService.getCurrentUser())))
                 .build());
 
         return tableMapper.toTableViewDto(newTable);
@@ -123,12 +126,24 @@ public class TableService {
      * Checks if the user is the owner of the specified table.
      *
      * @param username The username of the user.
-     * @param tableId The ID of the table.
+     * @param tableId  The ID of the table.
      * @return A boolean indicating whether the user is the owner of the table.
      */
     @Transactional(readOnly = true)
     public boolean isUserTableOwner(String username, String tableId) {
         return tableRepository.isUserTableOwner(username, tableId);
+    }
+
+    /**
+     * Checks if the user is the participant of the specified table.
+     *
+     * @param username The username of the user.
+     * @param tableId  The ID of the table.
+     * @return A boolean indicating whether the user is the participant of the table.
+     */
+    @Transactional(readOnly = true)
+    public boolean isUserTableParticipant(String username, String tableId) {
+        return tableRepository.isUserTableOwnerOrParticipant(username, tableId);
     }
 
     /**

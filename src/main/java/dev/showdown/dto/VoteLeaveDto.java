@@ -1,13 +1,15 @@
 package dev.showdown.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-@Schema(name = "Vote leave DTO")
+@Schema(name = "Voting Result DTO")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@RequiredArgsConstructor
 public class VoteLeaveDto {
+
+    private Long userId;
+    private boolean isVoted;
 }
