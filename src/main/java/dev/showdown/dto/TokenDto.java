@@ -10,6 +10,6 @@ import lombok.Data;
 public class TokenDto {
 
     private String accessToken;
-    private String refreshToken;
+    private RefreshTokenDto refreshToken;
 
 }

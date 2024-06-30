@@ -2,7 +2,12 @@ package dev.showdown.db.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.Date;
+
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,11 +21,18 @@ public class RefreshToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition = "TEXT")
-    private String value;
+    @Column(columnDefinition = "TEXT", unique = true, nullable = false, updatable = false)
+    private String token;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;
+
+    @Column(updatable = false)
+    @CreatedDate
+    private Date createdAt;
+
+    @Column(nullable = false, updatable = false)
+    private Date expiresAt;
 
 }

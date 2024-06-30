@@ -1,5 +1,6 @@
 package dev.showdown.service;
 
+import dev.showdown.db.entity.RefreshToken;
 import dev.showdown.db.entity.UserEntity;
 import dev.showdown.db.repository.RefreshTokenRepository;
 import dev.showdown.db.repository.UserEntityRepository;
@@ -21,6 +22,7 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
+    private final UserService userService;
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserEntityRepository userEntityRepository;
     private final PasswordEncoder passwordEncoder;
@@ -73,12 +75,12 @@ public class AuthService {
         if (!tokenService.isRefreshTokenValid(refreshTokenDto.getRefreshToken())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid refresh token!");
         }
-
-        refreshTokenRepository.deleteByValue(refreshTokenDto.getRefreshToken());
-
+        RefreshToken refreshToken = tokenService.getRefreshToken(refreshTokenDto.getRefreshToken());
         Authentication authentication = new UsernamePasswordAuthenticationToken(
-                        tokenService.extractUsername(refreshTokenDto.getRefreshToken()).get(),
+                        refreshToken.getUser().getUsername(),
                         null);
+
+        refreshTokenRepository.deleteByToken(refreshTokenDto.getRefreshToken());
 
         return tokenService.generateTokenDto(authentication);
     }
@@ -90,6 +92,6 @@ public class AuthService {
      */
     @Transactional
     public void logout(RefreshTokenDto refreshTokenDto) {
-        refreshTokenRepository.deleteByValue(refreshTokenDto.getRefreshToken());
+        refreshTokenRepository.deleteByToken(refreshTokenDto.getRefreshToken());
     }
 }

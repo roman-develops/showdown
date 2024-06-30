@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Schema(name = "Refresh token DTO")
 @Data
 @Builder
@@ -13,6 +15,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RefreshTokenDto {
 
+    private Long userId;
     private String refreshToken;
+    private Date createdAt;
+    private Date expiresAt;
 
 }
