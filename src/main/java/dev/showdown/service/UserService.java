@@ -2,6 +2,7 @@ package dev.showdown.service;
 
 import dev.showdown.db.entity.UserEntity;
 import dev.showdown.db.repository.UserEntityRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,18 @@ public class UserService {
     public UserEntity getUser(String username) {
         return userEntityRepository.findByUsername(username).orElseThrow(() ->
                 new UsernameNotFoundException(String.format("User with username %s not found", username)));
+    }
+
+    /**
+     * Retrieves a UserEntity by its username.
+     *
+     * @param userId - the id of the user
+     * @return UserEntity - the user entity with the given username
+     * @throws UsernameNotFoundException if a user with the given username is not found
+     */
+    public UserEntity getUser(Long userId) {
+        return userEntityRepository.findById(userId).orElseThrow(() ->
+                new EntityNotFoundException(String.format("User with id %s not found", userId)));
     }
 
     /**
