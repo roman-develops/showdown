@@ -25,4 +25,14 @@ public interface TableRepository extends JpaRepository<TableEntity, String> {
             "where t.id = :tableId and t.owner.username = :username")
     boolean isUserTableOwner(String username, String tableId);
 
+    @Query("select case " +
+            "when count(t) > 0 " +
+            "then true " +
+            "else false " +
+            "end " +
+            "from TableEntity t " +
+            "where t.id = :tableId and (" +
+            ":username = t.owner.username or " +
+            ":username in (select u.username from TableEntity t join t.participants u where t.id = :tableId))")
+    boolean isUserTableOwnerOrParticipant(String username, String tableId);
 }
